@@ -27,9 +27,11 @@ class EventBookingSearch(APIView):
         title = request.query_params.get("title", "")
 
         if title:
-            events = EventBooking.objects.filter(title__icontains=title)
+            events = EventBooking.objects.filter(title__icontains=title).order_by(
+                "event_date"
+            )
         else:
-            events = EventBooking.objects.all()
+            events = EventBooking.objects.all().order_by("event_date")
 
         serializer = EventBookingSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -37,13 +39,13 @@ class EventBookingSearch(APIView):
 
 # creating event
 class EventBookingCreate(generics.CreateAPIView):
-    queryset = EventBooking.objects.all()
+    queryset = EventBooking.objects.all().order_by("event_date")
     serializer_class = EventBookingSerializer
 
 
 # update event
 class EventBookingUpdate(generics.RetrieveUpdateAPIView):
-    queryset = EventBooking.objects.all()
+    queryset = EventBooking.objects.all().order_by("event_date")
     serializer_class = EventBookingSerializer
     lookup_field = "pk"
 

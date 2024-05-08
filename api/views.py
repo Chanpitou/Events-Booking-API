@@ -36,7 +36,7 @@ class EventBookingSearch(APIView):
 
 
 # creating event
-class EventBookingCreate(generics.ListCreateAPIView):
+class EventBookingCreate(generics.CreateAPIView):
     queryset = EventBooking.objects.all()
     serializer_class = EventBookingSerializer
 

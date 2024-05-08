@@ -1,1 +1,1 @@
-web: gunicorn smartmirror.wsgi --log-file -
+web: gunicorn event_booking.wsgi --log-file -
